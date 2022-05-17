@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "e-commerce_chopshop",
+  "description": "",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marcus0224/e-commerce_chopshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marcus0224/e-commerce_chopshop/issues"
+  },
+  "homepage": "https://github.com/Marcus0224/e-commerce_chopshop#readme"
+}
