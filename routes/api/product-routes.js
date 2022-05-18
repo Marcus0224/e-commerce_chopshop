@@ -66,17 +66,11 @@ router.post("/", (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create({
-    product_name: req.body.product_name,
-    price: req.body.price,
-    stock: req.body.stock,
-    category_id: req.body.category_id,
-    tagIds: req.body.tagIds,
-  })
+    Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
-        const productTagIdArr = JSON.parse(req.body.tagIds).map((tag_id) => {
+        const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
             tag_id,
@@ -95,7 +89,7 @@ router.post("/", (req, res) => {
 });
 
 // update product
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
     where: {
@@ -110,7 +104,7 @@ router.put("/:id", (req, res) => {
       // get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
       // create filtered list of new tag_ids
-      const newProductTags = JSON.parse(req.body.tagIds)
+      const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
           return {
@@ -122,6 +116,7 @@ router.put("/:id", (req, res) => {
       const productTagsToRemove = productTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
+
       // run both actions
       return Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
